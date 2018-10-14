@@ -16,15 +16,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".GymActivity">
-            <intent-filter>
-                <action android:name="app.java.nelu.com.motivationquotes.GymActivity" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
         </activity>
-
+        <activity android:name=".SadQuotes"></activity>
     </application>
 
 </manifest>
