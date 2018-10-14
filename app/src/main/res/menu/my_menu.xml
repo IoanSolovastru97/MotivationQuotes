@@ -1,17 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item
-        android:id="@+id/quotesGym"
-        android:title="Gym Quotes"
-        android:actionLayout="@layout/gym_quotes"/>
-    <item
-        android:id="@+id/quotesBusiness"
-        android:title="Business Quotes"
-        android:actionLayout="@layout/sad_quotes"/>
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/quotesGym"
+            android:actionLayout="@layout/gym_quotes"
+            android:title="Gym Quotes" />
+        <item
+            android:id="@+id/quotesBusiness"
+            android:actionLayout="@layout/sad_quotes"
+            android:title="Business Quotes" />
         <!--android:icon="@drawable/ic_business_quote"/>-->
-    <item
-        android:id="@+id/quotesFun"
-        android:title="Fun quotes" />
+        <item
+            android:id="@+id/quotesFun"
+            android:title="Fun quotes" />
+    </group>
+
+    <item android:title="Others">
+        <menu>
+            <item android:id="@+id/rate"
+                android:title="Rate us">
+            </item>
+            <item android:id="@+id/about_us"
+                android:title="About us">
+            </item>
+        </menu>
+    </item>
+
+
 </menu>

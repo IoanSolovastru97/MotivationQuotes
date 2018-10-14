@@ -3,7 +3,7 @@ package nelu.com.motivationquotes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class SadQuotes extends AppCompatActivity {
+public class SadQuotes extends MainActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
