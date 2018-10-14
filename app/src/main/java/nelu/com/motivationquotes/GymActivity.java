@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-public class GymActivity extends AppCompatActivity {
+public class GymActivity extends MainActivity {
 
     @Override
     protected void onCreate(@Nullable final Bundle savedInstanceState) {
