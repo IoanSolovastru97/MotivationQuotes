@@ -73,10 +73,4 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mainLayoutDrawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.my_menu,menu);
-        return true;
-    }
 }

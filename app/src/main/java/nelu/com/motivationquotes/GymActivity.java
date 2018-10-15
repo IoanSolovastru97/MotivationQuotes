@@ -13,20 +13,20 @@ import android.view.View;
 import android.widget.Button;
 
 public class GymActivity extends MainActivity {
-
+    private Button gymButton;
     @Override
     protected void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gym_quotes);
 
-        Button gymButton = findViewById(R.id.gym);
-
+        gymButton = findViewById(R.id.gym);
         gymButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                finish();
             }
         });
+
     }
 
     @Override
@@ -44,11 +44,4 @@ public class GymActivity extends MainActivity {
         mainLayoutDrawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.my_menu,menu);
-        return true;
-    }
-
 }
