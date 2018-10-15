@@ -10,17 +10,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
-import java.util.Random;
-
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private ImageView randomImage;
     private DrawerLayout mainLayoutDrawer;
     private ActionBarDrawerToggle toggle;
@@ -33,33 +25,15 @@ public class MainActivity extends AppCompatActivity {
 
         //Setting the upper left button
         mainLayoutDrawer = findViewById(R.id.drawerlayout); //Main Activity layout
+        navigationView = findViewById(R.id.navigation_view);
         toggle = new ActionBarDrawerToggle(this, mainLayoutDrawer, R.string.open, R.string.close);
         mainLayoutDrawer.addDrawerListener(toggle);
         toggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        setupNavigationView();
+        navigationView.setNavigationItemSelectedListener(this);
 
         generateRandomImage();
 
-    }
-
-    private void setupNavigationView() {
-        navigationView = findViewById(R.id.navigation_view);
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                int id = item.getItemId();
-                switch (id) {
-                    case R.id.quotesGym:
-                        startActivity(new Intent(MainActivity.this, GymActivity.class));
-                        break;
-                    case R.id.quotesFun:
-
-                        break;
-                }
-                return false;
-            }
-        });
     }
 
     private void generateRandomImage() {
@@ -83,5 +57,20 @@ public class MainActivity extends AppCompatActivity {
         } else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.quotesGym:
+                startActivity(new Intent(MainActivity.this, GymActivity.class));
+                break;
+            case R.id.quotesFun:
+                startActivity(new Intent(MainActivity.this, SadQuotes.class));
+                break;
+        }
+        mainLayoutDrawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 }
