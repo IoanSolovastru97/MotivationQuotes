@@ -25,11 +25,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         //Setting the upper left button
         mainLayoutDrawer = findViewById(R.id.drawerlayout); //Main Activity layout
-        navigationView = findViewById(R.id.navigation_view);
         toggle = new ActionBarDrawerToggle(this, mainLayoutDrawer, R.string.open, R.string.close);
         mainLayoutDrawer.addDrawerListener(toggle);
         toggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        navigationView = findViewById(R.id.navigation_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         generateRandomImage();
