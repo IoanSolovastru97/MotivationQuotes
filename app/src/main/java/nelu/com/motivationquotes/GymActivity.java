@@ -1,47 +1,36 @@
 package nelu.com.motivationquotes;
 
-import android.content.Intent;
+
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GymActivity extends MainActivity {
-    private Button gymButton;
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter adapter;
+    private List<Integer> images;
+
     @Override
     protected void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gym_quotes);
 
-        gymButton = findViewById(R.id.gym);
-        gymButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               finish();
-            }
-        });
+        recyclerView = findViewById(R.id.recycle_view);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-    }
+        images = new ArrayList();
+        images.add(R.drawable.quote1);
+        images.add(R.drawable.quote2);
+        images.add(R.drawable.quote3);
+        images.add(R.drawable.quote4);
+        images.add(R.drawable.quote5);
 
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-        switch (id) {
-            case R.id.quotesGym:
-                startActivity(new Intent(GymActivity.this, GymActivity.class));
-                break;
-            case R.id.quotesFun:
-                startActivity(new Intent(GymActivity.this, SadQuotes.class));
-                break;
-        }
-        DrawerLayout mainLayoutDrawer = findViewById(R.id.drawerlayout);
-        mainLayoutDrawer.closeDrawer(GravityCompat.START);
-        return true;
+        adapter = new MyAdapter(images, this);
+        recyclerView.setAdapter(adapter);
+
     }
 }
