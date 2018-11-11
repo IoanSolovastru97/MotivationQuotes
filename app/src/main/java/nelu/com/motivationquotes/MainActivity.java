@@ -69,6 +69,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.quotesFun:
                 startActivity(new Intent(MainActivity.this, SadQuotes.class));
                 break;
+            case R.id.quotes_load_images:
+                startActivity(new Intent(MainActivity.this, LoadImages.class));
+                break;
         }
         mainLayoutDrawer.closeDrawer(GravityCompat.START);
         return true;

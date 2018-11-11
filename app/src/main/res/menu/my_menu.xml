@@ -15,6 +15,9 @@
         <item
             android:id="@+id/quotesFun"
             android:title="Fun quotes" />
+        <item
+            android:id="@+id/quotes_load_images"
+            android:title="Load Images" />
     </group>
 
     <item android:title="Others">
