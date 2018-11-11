@@ -10,7 +10,7 @@ import java.util.List;
 public class SadQuotes extends MainActivity {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
-    private List<Integer> images;
+    private List<String> images;
 
     @Override
     protected void onCreate(@Nullable final Bundle savedInstanceState) {
@@ -22,13 +22,9 @@ public class SadQuotes extends MainActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         images = new ArrayList();
-        images.add(R.drawable.quote1);
-        images.add(R.drawable.quote2);
-        images.add(R.drawable.quote3);
-        images.add(R.drawable.quote4);
-        images.add(R.drawable.quote5);
 
-        adapter = new MyAdapter(images,this);
+
+        adapter = new MyAdapter(images,SadQuotes.this);
         recyclerView.setAdapter(adapter);
     }
 

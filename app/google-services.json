@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "801910658526",
+    "firebase_url": "https://motivationquotes-ce284.firebaseio.com",
+    "project_id": "motivationquotes-ce284",
+    "storage_bucket": "motivationquotes-ce284.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:801910658526:android:a3bc653ce7e8c0d7",
+        "android_client_info": {
+          "package_name": "nelu.com.motivationquotes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "801910658526-08f98ukkbpm2ui14qd077dfqjnuoor4r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "nelu.com.motivationquotes",
+            "certificate_hash": "ba5c892bcd4c40b4816cda38de69a20b7e405271"
+          }
+        },
+        {
+          "client_id": "801910658526-imrvfd3qcqg7bi69caj0dg8v7paa2dg1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAvFDjuv2d4Utx8sY4zrmBg1E2PrSxT_9E"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "801910658526-imrvfd3qcqg7bi69caj0dg8v7paa2dg1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

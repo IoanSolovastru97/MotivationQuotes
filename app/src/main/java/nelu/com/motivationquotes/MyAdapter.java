@@ -8,14 +8,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
-    private List<Integer> images;
+    private List<String> images;
     private Context context;
 
-    public MyAdapter(List<Integer> images, Context context) {
+    public MyAdapter(List<String> images, Context context) {
         this.images = images;
         this.context = context;
     }
@@ -38,8 +40,16 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        int listItem  = images.get(position);
-        holder.imageView.setImageResource(listItem);
+        String listItem = images.get(position);
+        //can modify crop,fit, centtercrop Change with centerInside
+
+        Picasso.with(context)
+                .load(listItem)
+                .fit()
+                .placeholder(R.drawable.loading)
+                .centerCrop()
+                .into(holder.imageView);
+
     }
 
     @Override
