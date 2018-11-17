@@ -7,6 +7,11 @@ import android.net.Uri;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.view.MenuItem;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
@@ -36,10 +41,24 @@ public class LoadImages extends MainActivity {
     private DatabaseReference databaseReference;
     private StorageTask mUploadTask;
 
+    private DrawerLayout loadImagesDrawerLayout;
+    private ActionBarDrawerToggle toggle;
+    private NavigationView navigationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_load_images);
+
+
+        //Implementing navigation bar
+        loadImagesDrawerLayout = findViewById(R.id.load_images_drawer_layout); //Main Activity layout
+        toggle = new ActionBarDrawerToggle(this, loadImagesDrawerLayout, R.string.open, R.string.close);
+        loadImagesDrawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        navigationView = findViewById(R.id.navigation_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
         chooseImageButton = findViewById(R.id.button_choose_image);
         uploadButton = findViewById(R.id.button_upload);
@@ -149,5 +168,28 @@ public class LoadImages extends MainActivity {
         } else {
             Toast.makeText(this, "No file selected", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.quotesFun:
+                startActivity(new Intent(LoadImages.this, SadQuotes.class));
+                break;
+            case R.id.quotesGym:
+                startActivity(new Intent(LoadImages.this, GymActivity.class));
+                break;
+        }
+        getMainLayoutDrawer().closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(toggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
