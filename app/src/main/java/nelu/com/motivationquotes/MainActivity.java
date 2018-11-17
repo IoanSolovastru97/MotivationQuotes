@@ -8,7 +8,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ImageView;
 
@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
 
         //Setting the upper left button
-        mainLayoutDrawer = findViewById(R.id.drawerlayout); //Main Activity layout
+        mainLayoutDrawer = findViewById(R.id.main_drawer_layout); //Main Activity layout
         toggle = new ActionBarDrawerToggle(this, mainLayoutDrawer, R.string.open, R.string.close);
         mainLayoutDrawer.addDrawerListener(toggle);
         toggle.syncState();
@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView = findViewById(R.id.navigation_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        //make an utility class to call random image
         generateRandomImage();
 
     }
@@ -44,8 +45,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (toggle.onOptionsItemSelected(item)) {
+            Log.d("1","HERE");
             return true;
         }
+        Log.d("1","THERE");
         return super.onOptionsItemSelected(item);
     }
 
@@ -75,5 +78,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         mainLayoutDrawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public DrawerLayout getMainLayoutDrawer() {
+        return mainLayoutDrawer;
+    }
+
+    public ActionBarDrawerToggle getToggle() {
+        return toggle;
     }
 }

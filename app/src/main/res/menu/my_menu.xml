@@ -5,11 +5,11 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/quotesGym"
-            android:actionLayout="@layout/gym_quotes"
+            android:actionLayout="@layout/activity_gym_quotes"
             android:title="Gym Quotes" />
         <item
             android:id="@+id/quotesBusiness"
-            android:actionLayout="@layout/sad_quotes"
+            android:actionLayout="@layout/activity_sad_quotes"
             android:title="Business Quotes" />
         <!--android:icon="@drawable/ic_business_quote"/>-->
         <item
