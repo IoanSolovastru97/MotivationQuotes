@@ -15,6 +15,8 @@ import android.view.MenuItem;
 import java.util.ArrayList;
 import java.util.List;
 
+import nelu.com.motivationquotes.utilis.ImageProcessesing;
+
 public class SadQuotes extends MainActivity {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
@@ -30,7 +32,7 @@ public class SadQuotes extends MainActivity {
         setContentView(R.layout.activity_sad_quotes);
 
         //Implementing navigation bar
-        SadDrawerLayout = findViewById(R.id.load_images_drawer_layout); //Main Activity layout
+        SadDrawerLayout = findViewById(R.id.sad_drawer_layout);
         toggle = new ActionBarDrawerToggle(this, SadDrawerLayout, R.string.open, R.string.close);
         SadDrawerLayout.addDrawerListener(toggle);
         toggle.syncState();
@@ -38,14 +40,11 @@ public class SadQuotes extends MainActivity {
         navigationView = findViewById(R.id.navigation_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        recyclerView = findViewById(R.id.recycle_view);
+        recyclerView = findViewById(R.id.sad_recycle_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        images = new ArrayList();
-
-        adapter = new MyAdapter(images,SadQuotes.this);
-        recyclerView.setAdapter(adapter);
+        ImageProcessesing.getListImage(SadQuotes.this,recyclerView,"quotes1");
     }
 
 

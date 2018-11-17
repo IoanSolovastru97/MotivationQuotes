@@ -23,11 +23,12 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import nelu.com.motivationquotes.utilis.ImageProcessesing;
+
 public class GymActivity extends MainActivity {
     private RecyclerView recyclerView;
-    private MyAdapter adapter;
     private List<String> images;
-    private DatabaseReference mDatabaseRef;
+
     private DrawerLayout gymDrawerLayout;
     private ActionBarDrawerToggle toggle;
     private NavigationView navigationView;
@@ -48,33 +49,11 @@ public class GymActivity extends MainActivity {
         navigationView.setNavigationItemSelectedListener(this);
 
 
-        recyclerView = findViewById(R.id.recycle_view);
+        recyclerView = findViewById(R.id.gym_recycle_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        images = new ArrayList();
-
-        //Firebase
-        mDatabaseRef = FirebaseDatabase.getInstance().getReference("quotes1");
-
-        mDatabaseRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    String upload = postSnapshot.getValue(String.class);
-                    images.add(upload);
-                }
-
-                adapter = new MyAdapter(images,GymActivity.this);
-                recyclerView.setAdapter(adapter);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(GymActivity.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
+        images = ImageProcessesing.getListImage(GymActivity.this,recyclerView,"quotes1");
     }
 
 
