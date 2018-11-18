@@ -10,7 +10,6 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ImageView;
 
@@ -70,13 +69,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(new Intent(MainActivity.this, GymActivity.class));
                 break;
             case R.id.quotesFun:
-                startActivity(new Intent(MainActivity.this, SadQuotes.class));
+                startActivity(new Intent(MainActivity.this, SadActivity.class));
                 break;
             case R.id.quotes_load_images:
                 startActivity(new Intent(MainActivity.this, LoadImages.class));
                 break;
             case R.id.about_us:
-                startActivity(new Intent(MainActivity.this, AboutUs.class));
+                startActivity(new Intent(MainActivity.this, AboutUsActivity.class));
                 break;
             case R.id.rate_us:
                 rateUs();

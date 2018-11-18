@@ -5,7 +5,7 @@
     android:id="@+id/sad_drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SadQuotes">
+    tools:context=".SadActivity">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/sad_recycle_view"

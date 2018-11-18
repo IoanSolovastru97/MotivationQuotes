@@ -39,7 +39,7 @@ public class GymActivity extends MainActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         navigationView = findViewById(R.id.navigation_view);
         navigationView.setNavigationItemSelectedListener(this);
-
+        navigationView.setCheckedItem(R.id.quotesGym);
 
         recyclerView = findViewById(R.id.gym_recycle_view);
         recyclerView.setHasFixedSize(true);
@@ -54,13 +54,13 @@ public class GymActivity extends MainActivity {
         int id = item.getItemId();
         switch (id) {
             case R.id.quotesFun:
-                startActivity(new Intent(GymActivity.this, SadQuotes.class));
+                startActivity(new Intent(GymActivity.this, SadActivity.class));
                 break;
             case R.id.quotes_load_images:
                 startActivity(new Intent(GymActivity.this, LoadImages.class));
                 break;
             case R.id.about_us:
-                startActivity(new Intent(GymActivity.this, AboutUs.class));
+                startActivity(new Intent(GymActivity.this, AboutUsActivity.class));
                 break;
             case R.id.rate_us:
                 super.rateUs();

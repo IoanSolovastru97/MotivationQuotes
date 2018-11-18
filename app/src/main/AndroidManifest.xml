@@ -20,9 +20,9 @@
         </activity>
         <activity android:name=".GymActivity"
             android:label="@string/gym_quotes"/>
-        <activity android:name=".SadQuotes"
+        <activity android:name=".SadActivity"
             android:label="@string/sad_quotes"/>
-        <activity android:name=".AboutUs"
+        <activity android:name=".AboutUsActivity"
             android:label="@string/about_us"/>
         <activity android:name=".LoadImages"></activity>
     </application>

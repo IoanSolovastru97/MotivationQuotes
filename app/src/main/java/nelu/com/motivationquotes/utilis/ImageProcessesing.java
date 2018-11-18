@@ -12,7 +12,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-import nelu.com.motivationquotes.MyAdapter;
 
 public class ImageProcessesing {
     private static DatabaseReference mDatabaseRef;
