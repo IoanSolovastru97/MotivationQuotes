@@ -3,13 +3,13 @@ package nelu.com.motivationquotes;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -47,10 +47,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (toggle.onOptionsItemSelected(item)) {
-            Log.d("1","HERE");
             return true;
         }
-        Log.d("1","THERE");
         return super.onOptionsItemSelected(item);
     }
 
@@ -77,6 +75,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.quotes_load_images:
                 startActivity(new Intent(MainActivity.this, LoadImages.class));
                 break;
+            case R.id.about_us:
+                startActivity(new Intent(MainActivity.this, AboutUs.class));
+                break;
             case R.id.rate_us:
                 rateUs();
                 break;
@@ -85,7 +86,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
-    private void rateUs() {
+    protected void rateUs() {
         try {
             startActivity(new Intent(Intent.ACTION_VIEW,Uri.parse("market://details?id=" + "com.android.chrome")));
 //                    For my app
@@ -96,11 +97,4 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    public DrawerLayout getMainLayoutDrawer() {
-        return mainLayoutDrawer;
-    }
-
-    public ActionBarDrawerToggle getToggle() {
-        return toggle;
-    }
 }

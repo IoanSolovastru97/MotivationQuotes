@@ -4,9 +4,9 @@ package nelu.com.motivationquotes;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -180,8 +180,14 @@ public class LoadImages extends MainActivity {
             case R.id.quotesGym:
                 startActivity(new Intent(LoadImages.this, GymActivity.class));
                 break;
+            case R.id.about_us:
+                startActivity(new Intent(LoadImages.this, AboutUs.class));
+                break;
+            case R.id.rate_us:
+                super.rateUs();
+                break;
         }
-        getMainLayoutDrawer().closeDrawer(GravityCompat.START);
+        loadImagesDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
 

@@ -12,15 +12,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import nelu.com.motivationquotes.utilis.ImageProcessesing;
 
 public class SadQuotes extends MainActivity {
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter adapter;
-    private List<String> images;
+
 
     private DrawerLayout SadDrawerLayout;
     private ActionBarDrawerToggle toggle;
@@ -58,8 +56,14 @@ public class SadQuotes extends MainActivity {
             case R.id.quotes_load_images:
                 startActivity(new Intent(SadQuotes.this, LoadImages.class));
                 break;
+            case R.id.about_us:
+                startActivity(new Intent(SadQuotes.this, AboutUs.class));
+                break;
+            case R.id.rate_us:
+                super.rateUs();
+                break;
         }
-        getMainLayoutDrawer().closeDrawer(GravityCompat.START);
+        SadDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
 

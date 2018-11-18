@@ -22,6 +22,8 @@
             android:label="@string/gym_quotes"/>
         <activity android:name=".SadQuotes"
             android:label="@string/sad_quotes"/>
+        <activity android:name=".AboutUs"
+            android:label="@string/about_us"/>
         <activity android:name=".LoadImages"></activity>
     </application>
 
