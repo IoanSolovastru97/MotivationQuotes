@@ -50,7 +50,16 @@ public class ImageProcessesing {
                 Toast.makeText(context, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
         return list;
+    }
+
+    /**
+     * Knowing each folder, we will have a list with all quotes.
+     * This method is used to generate in MainActivity the random quote.
+     */
+    public static List getAllImages(){
+
+        images.addAll(null);
+        return images;
     }
 }

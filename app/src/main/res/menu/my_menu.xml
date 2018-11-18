@@ -22,7 +22,7 @@
 
     <item android:title="Others">
         <menu>
-            <item android:id="@+id/rate"
+            <item android:id="@+id/rate_us"
                 android:title="Rate us">
             </item>
             <item android:id="@+id/about_us"

@@ -1,6 +1,8 @@
 package nelu.com.motivationquotes;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -75,9 +77,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.quotes_load_images:
                 startActivity(new Intent(MainActivity.this, LoadImages.class));
                 break;
+            case R.id.rate_us:
+                rateUs();
+                break;
         }
         mainLayoutDrawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void rateUs() {
+        try {
+            startActivity(new Intent(Intent.ACTION_VIEW,Uri.parse("market://details?id=" + "com.android.chrome")));
+//                    For my app
+//                    Uri.parse("market://details?id=" + getPackageName())));
+        }catch (ActivityNotFoundException e){
+            startActivity(new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("http://play.google.com/store/apps/details/?id=" + getPackageName())));
+        }
     }
 
     public DrawerLayout getMainLayoutDrawer() {
