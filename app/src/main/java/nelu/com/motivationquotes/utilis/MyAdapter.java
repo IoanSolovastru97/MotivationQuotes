@@ -1,4 +1,4 @@
-package nelu.com.motivationquotes;
+package nelu.com.motivationquotes.utilis;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
+import nelu.com.motivationquotes.R;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 

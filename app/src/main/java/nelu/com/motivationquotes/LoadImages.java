@@ -4,9 +4,9 @@ package nelu.com.motivationquotes;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -59,6 +59,7 @@ public class LoadImages extends MainActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         navigationView = findViewById(R.id.navigation_view);
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setCheckedItem(R.id.quotes_load_images);
 
         chooseImageButton = findViewById(R.id.button_choose_image);
         uploadButton = findViewById(R.id.button_upload);
@@ -175,13 +176,19 @@ public class LoadImages extends MainActivity {
         int id = item.getItemId();
         switch (id) {
             case R.id.quotesFun:
-                startActivity(new Intent(LoadImages.this, SadQuotes.class));
+                startActivity(new Intent(LoadImages.this, SadActivity.class));
                 break;
             case R.id.quotesGym:
                 startActivity(new Intent(LoadImages.this, GymActivity.class));
                 break;
+            case R.id.about_us:
+                startActivity(new Intent(LoadImages.this, AboutUsActivity.class));
+                break;
+            case R.id.rate_us:
+                super.rateUs();
+                break;
         }
-        getMainLayoutDrawer().closeDrawer(GravityCompat.START);
+        loadImagesDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
 

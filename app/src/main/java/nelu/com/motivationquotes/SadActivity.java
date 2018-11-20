@@ -12,13 +12,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 
-import java.util.ArrayList;
-import java.util.List;
+import nelu.com.motivationquotes.utilis.ImageProcessesing;
 
-public class SadQuotes extends MainActivity {
+public class SadActivity extends MainActivity {
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter adapter;
-    private List<String> images;
+
 
     private DrawerLayout SadDrawerLayout;
     private ActionBarDrawerToggle toggle;
@@ -30,22 +28,20 @@ public class SadQuotes extends MainActivity {
         setContentView(R.layout.activity_sad_quotes);
 
         //Implementing navigation bar
-        SadDrawerLayout = findViewById(R.id.load_images_drawer_layout); //Main Activity layout
+        SadDrawerLayout = findViewById(R.id.sad_drawer_layout);
         toggle = new ActionBarDrawerToggle(this, SadDrawerLayout, R.string.open, R.string.close);
         SadDrawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         navigationView = findViewById(R.id.navigation_view);
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setCheckedItem(R.id.quotesFun);
 
-        recyclerView = findViewById(R.id.recycle_view);
+        recyclerView = findViewById(R.id.sad_recycle_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        images = new ArrayList();
-
-        adapter = new MyAdapter(images,SadQuotes.this);
-        recyclerView.setAdapter(adapter);
+        ImageProcessesing.getListImage(SadActivity.this,recyclerView,"quotes1");
     }
 
 
@@ -54,13 +50,19 @@ public class SadQuotes extends MainActivity {
         int id = item.getItemId();
         switch (id) {
             case R.id.quotesGym:
-                startActivity(new Intent(SadQuotes.this, GymActivity.class));
+                startActivity(new Intent(SadActivity.this, GymActivity.class));
                 break;
             case R.id.quotes_load_images:
-                startActivity(new Intent(SadQuotes.this, LoadImages.class));
+                startActivity(new Intent(SadActivity.this, LoadImages.class));
+                break;
+            case R.id.about_us:
+                startActivity(new Intent(SadActivity.this, AboutUsActivity.class));
+                break;
+            case R.id.rate_us:
+                super.rateUs();
                 break;
         }
-        getMainLayoutDrawer().closeDrawer(GravityCompat.START);
+        SadDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
 

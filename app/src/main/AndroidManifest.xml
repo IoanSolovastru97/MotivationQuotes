@@ -18,8 +18,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".GymActivity" />
-        <activity android:name=".SadQuotes" />
+        <activity android:name=".GymActivity"
+            android:label="@string/gym_quotes"/>
+        <activity android:name=".SadActivity"
+            android:label="@string/sad_quotes"/>
+        <activity android:name=".AboutUsActivity"
+            android:label="@string/about_us"/>
         <activity android:name=".LoadImages"></activity>
     </application>
 

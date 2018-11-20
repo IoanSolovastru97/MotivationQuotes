@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">Motivational Quotes</string>
+    <string name="gym_quotes">Gym Quotes</string>
+    <string name="business_quotes">Business Quotes</string>
+    <string name="sad_quotes">Sad Quotes</string>
+    <string name="funny_quotes">Funny Quotes</string>
+    <string name="about_us">About us</string>
     <string name="open">open</string>
     <string name="close">close</string>
 </resources>

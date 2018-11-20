@@ -1,14 +1,15 @@
 package nelu.com.motivationquotes;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ImageView;
 
@@ -45,10 +46,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (toggle.onOptionsItemSelected(item)) {
-            Log.d("1","HERE");
             return true;
         }
-        Log.d("1","THERE");
         return super.onOptionsItemSelected(item);
     }
 
@@ -70,21 +69,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(new Intent(MainActivity.this, GymActivity.class));
                 break;
             case R.id.quotesFun:
-                startActivity(new Intent(MainActivity.this, SadQuotes.class));
+                startActivity(new Intent(MainActivity.this, SadActivity.class));
                 break;
             case R.id.quotes_load_images:
                 startActivity(new Intent(MainActivity.this, LoadImages.class));
+                break;
+            case R.id.about_us:
+                startActivity(new Intent(MainActivity.this, AboutUsActivity.class));
+                break;
+            case R.id.rate_us:
+                rateUs();
                 break;
         }
         mainLayoutDrawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
-    public DrawerLayout getMainLayoutDrawer() {
-        return mainLayoutDrawer;
+    protected void rateUs() {
+        try {
+            startActivity(new Intent(Intent.ACTION_VIEW,Uri.parse("market://details?id=" + "com.android.chrome")));
+//                    For my app
+//                    Uri.parse("market://details?id=" + getPackageName())));
+        }catch (ActivityNotFoundException e){
+            startActivity(new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("http://play.google.com/store/apps/details/?id=" + getPackageName())));
+        }
     }
 
-    public ActionBarDrawerToggle getToggle() {
-        return toggle;
-    }
 }
