@@ -10,50 +10,38 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-        <Button
-            android:id="@+id/button_choose_image"
-            android:layout_width="120dp"
-            android:layout_height="40dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="119dp"
-            android:layout_marginTop="6dp"
-            android:layout_marginEnd="121dp"
-            android:text="Choose file" />
-
-        <Button
-            android:id="@+id/button_upload"
-            android:layout_width="193dp"
-            android:layout_height="61dp"
-            android:layout_below="@+id/button_choose_image"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="105dp"
-            android:layout_marginTop="362dp"
-            android:layout_marginEnd="86dp"
-            android:layout_marginBottom="42dp"
-            android:text="Upload" />
-
-        <ProgressBar
-            android:id="@+id/progress_bar"
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        <TextView
+            android:id="@+id/main_heading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="122dp" />
+            android:layout_marginTop="50dp"
+            android:fontFamily="@fonts/nunito_semibold"
+            android:text="Multiple File Upload"
+            android:textColor="#000000"
+            android:textSize="20sp" />
 
-        <ImageView
-            android:id="@+id/load_image"
+        <ImageButton
+            android:id="@+id/select_btn"
             android:layout_width="match_parent"
-            android:layout_height="210dp"
-            android:layout_alignTop="@+id/progress_bar"
-            android:layout_alignParentStart="true"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/main_heading"
             android:layout_centerHorizontal="true"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="48dp" />
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@android:color/transparent"
+            android:scaleType="fitCenter"
+            app:srcCompat="@mipmap/upload_btn" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/load_recycle_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/select_btn"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"></android.support.v7.widget.RecyclerView>
     </RelativeLayout>
 
     <android.support.design.widget.NavigationView

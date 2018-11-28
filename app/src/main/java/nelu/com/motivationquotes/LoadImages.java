@@ -1,49 +1,55 @@
 package nelu.com.motivationquotes;
 
 
-import android.content.ContentResolver;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
+import android.provider.OpenableColumns;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
-import android.webkit.MimeTypeMap;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
-import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import nelu.com.motivationquotes.utilis.UploadListAdapter;
 
 public class LoadImages extends MainActivity {
-    private static final int PICK_IMAGE_REQUEST = 1;
-    private Button chooseImageButton;
-    private Button uploadButton;
-    private ImageView imageView;
-    private ProgressBar progressBar;
-    private Uri imageUri;
-    private StorageReference storageReference;
-    private DatabaseReference databaseReference;
-    private StorageTask mUploadTask;
+
 
     private DrawerLayout loadImagesDrawerLayout;
     private ActionBarDrawerToggle toggle;
     private NavigationView navigationView;
+    public static final String LOCATION_FOLDER = "quotes1";
+
+
+    private static final int RESULT_LOAD_IMAGE = 1;
+    private ImageButton mSelectBtn;
+    private RecyclerView mUploadList;
+
+    private List<String> fileNameList;
+    private List<String> fileDoneList;
+
+    private UploadListAdapter uploadListAdapter;
+
+    private DatabaseReference databaseReference;
+    private StorageReference storageReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,114 +67,116 @@ public class LoadImages extends MainActivity {
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.quotes_load_images);
 
-        chooseImageButton = findViewById(R.id.button_choose_image);
-        uploadButton = findViewById(R.id.button_upload);
-        progressBar = findViewById(R.id.progress_bar);
-        imageView = findViewById(R.id.load_image);
-        // "quotes" is the folder which is created
-        storageReference = FirebaseStorage.getInstance().getReference("quotes1");
-        databaseReference = FirebaseDatabase.getInstance().getReference("quotes1");
+
+        storageReference = FirebaseStorage.getInstance().getReference(LOCATION_FOLDER);
+        databaseReference = FirebaseDatabase.getInstance().getReference(LOCATION_FOLDER);
+
+        mSelectBtn = (ImageButton) findViewById(R.id.select_btn);
+        mUploadList = (RecyclerView) findViewById(R.id.load_recycle_view);
+
+        fileNameList = new ArrayList<>();
+        fileDoneList = new ArrayList<>();
+
+        uploadListAdapter = new UploadListAdapter(fileNameList, fileDoneList);
+
+        //RecyclerView
+
+        mUploadList.setLayoutManager(new LinearLayoutManager(this));
+        mUploadList.setHasFixedSize(true);
+        mUploadList.setAdapter(uploadListAdapter);
 
 
-        chooseImageButton.setOnClickListener(new View.OnClickListener() {
+        mSelectBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                openFileChooser();
+            public void onClick(View view) {
+
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Select Picture"), RESULT_LOAD_IMAGE);
+
             }
         });
 
-        uploadButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mUploadTask != null && mUploadTask.isInProgress()) {
-                    Toast.makeText(LoadImages.this, "Upload in progress", Toast.LENGTH_SHORT).show();
-                } else {
-                    uploadFile();
-                }
-            }
-        });
     }
 
-
-    private void openFileChooser() {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(intent, PICK_IMAGE_REQUEST);
-    }
-
-    /**
-     * Used to get the request which is huge and that's why we use PICK_IMAGE_REQUEST
-     * Gets the image and shows it.
-     *
-     * @param requestCode
-     * @param resultCode
-     * @param data
-     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
-                && data != null && data.getData() != null) {
 
-            imageUri = data.getData();
-            Picasso.with(this).load(imageUri).into(imageView);
-        }
-    }
+        if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK) {
 
-    /**
-     * Get the file extension of the image( jpg, png )
-     */
-    private String getFileExtension(Uri uri) {
-        ContentResolver contentResolver = getContentResolver();
-        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
-        return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
-    }
+            if (data.getClipData() != null) {
 
-    /**
-     * The images has to have unique names, that why we add as name the time.
-     */
-    private void uploadFile() {
-        if (imageUri != null) {
-            StorageReference fileReference = storageReference.child(System.currentTimeMillis() + "." + getFileExtension(imageUri));
-            mUploadTask = fileReference.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    //In order to see the progress bar, we introduce a handler(for delay,5 sec), because the upload is done really fast
-                    Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
+                int totalItemsSelected = data.getClipData().getItemCount();
+
+                for (int i = 0; i < totalItemsSelected; i++) {
+
+                    Uri fileUri = data.getClipData().getItemAt(i).getUri();
+
+                    final String fileName = getFileName(fileUri);
+
+                    fileNameList.add(fileName);
+                    fileDoneList.add("uploading");
+                    uploadListAdapter.notifyDataSetChanged();
+
+                    StorageReference fileToUpload = storageReference.child(fileName);
+
+                    final int finalI = i;
+                    fileToUpload.putFile(fileUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
-                        public void run() {
-                            progressBar.setProgress(0);
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                            fileDoneList.remove(finalI);
+                            fileDoneList.add(finalI, "done");
+                            //To get the image we use taskSnapshot
+                            // String image = taskSnapshot.getStorage().getDownloadUrl().toString();
+                            String image = taskSnapshot.getDownloadUrl().toString();
+                            //To upload the meta data on Cloud
+                            //uploadId gets an unique ID and at that ID we put the image URL
+                            String uploadId = databaseReference.push().getKey();
+                            databaseReference.child(uploadId).setValue(image);
+
+                            uploadListAdapter.notifyDataSetChanged();
+
                         }
-                    },500);
-
-                    Toast.makeText(LoadImages.this,"Upload successful ",Toast.LENGTH_SHORT).show();
-                    //To get the image we use taskSnapshot
-//                    String image = taskSnapshot.getStorage().getDownloadUrl().toString();
-                    String image = taskSnapshot.getDownloadUrl().toString();
-                    //To upload the meta data on Cloud
-                    //uploadId gets an unique ID and at that ID we put the image URL
-                    String uploadId = databaseReference.push().getKey();
-                    databaseReference.child(uploadId).setValue(image);
+                    });
 
                 }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(LoadImages.this, "Faild to upload", Toast.LENGTH_SHORT).show();
-                }
-            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                    double progress = (100 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
-                    progressBar.setProgress((int) progress);
-                }
-            });
-        } else {
-            Toast.makeText(this, "No file selected", Toast.LENGTH_SHORT).show();
+
+            } else if (data.getData() != null) {
+
+                Toast.makeText(LoadImages.this, "Selected Single File", Toast.LENGTH_SHORT).show();
+
+            }
+
         }
+
+    }
+
+
+    public String getFileName(Uri uri) {
+        String result = null;
+        if (uri.getScheme().equals("content")) {
+            Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+            try {
+                if (cursor != null && cursor.moveToFirst()) {
+                    result = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+                }
+            } finally {
+                cursor.close();
+            }
+        }
+        if (result == null) {
+            result = uri.getPath();
+            int cut = result.lastIndexOf('/');
+            if (cut != -1) {
+                result = result.substring(cut + 1);
+            }
+        }
+        return result;
     }
 
     @Override
@@ -194,7 +202,7 @@ public class LoadImages extends MainActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(toggle.onOptionsItemSelected(item)) {
+        if (toggle.onOptionsItemSelected(item)) {
             return true;
         }
         return super.onOptionsItemSelected(item);
