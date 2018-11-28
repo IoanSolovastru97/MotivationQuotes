@@ -10,14 +10,24 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
-import android.widget.ImageView;
+import android.widget.ArrayAdapter;
+import android.widget.MultiAutoCompleteTextView;
+
+import java.util.List;
+
+import nelu.com.motivationquotes.utilis.ImageProcessesing;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    private ImageView randomImage;
+
+    private List<String> images;
     private DrawerLayout mainLayoutDrawer;
     private ActionBarDrawerToggle toggle;
     private NavigationView navigationView;
+    private RecyclerView recyclerView;
+
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -25,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
 
         //Setting the upper left button
-        mainLayoutDrawer = findViewById(R.id.main_drawer_layout); //Main Activity layout
+        mainLayoutDrawer = findViewById(R.id.main_drawer_layout);
         toggle = new ActionBarDrawerToggle(this, mainLayoutDrawer, R.string.open, R.string.close);
         mainLayoutDrawer.addDrawerListener(toggle);
         toggle.syncState();
@@ -33,14 +43,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView = findViewById(R.id.navigation_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        //make an utility class to call random image
-        generateRandomImage();
+        recyclerView = findViewById(R.id.main_recycle_view);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-    }
-
-    private void generateRandomImage() {
-        randomImage = findViewById(R.id.randomImage);
-        randomImage.setBackground(getDrawable(R.drawable.quote1));
+        images = ImageProcessesing.getListImage(MainActivity.this, recyclerView,"QuotesAll");
     }
 
     @Override
@@ -87,10 +94,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     protected void rateUs() {
         try {
-            startActivity(new Intent(Intent.ACTION_VIEW,Uri.parse("market://details?id=" + "com.android.chrome")));
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + "com.android.chrome")));
 //                    For my app
 //                    Uri.parse("market://details?id=" + getPackageName())));
-        }catch (ActivityNotFoundException e){
+        } catch (ActivityNotFoundException e) {
             startActivity(new Intent(Intent.ACTION_VIEW,
                     Uri.parse("http://play.google.com/store/apps/details/?id=" + getPackageName())));
         }
