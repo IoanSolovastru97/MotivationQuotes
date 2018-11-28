@@ -10,7 +10,7 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-        <TextView
+        <MultiAutoCompleteTextView
             android:id="@+id/main_heading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -18,9 +18,9 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="50dp"
             android:fontFamily="@fonts/nunito_semibold"
-            android:text="Multiple File Upload"
             android:textColor="#000000"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:hint="Select Folder" />
 
         <ImageButton
             android:id="@+id/select_btn"

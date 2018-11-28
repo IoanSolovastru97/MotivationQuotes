@@ -45,7 +45,7 @@ public class GymActivity extends MainActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        images = ImageProcessesing.getListImage(GymActivity.this,recyclerView,"quotes1");
+        images = ImageProcessesing.getListImage(GymActivity.this,recyclerView,"QuotesGym");
     }
 
 

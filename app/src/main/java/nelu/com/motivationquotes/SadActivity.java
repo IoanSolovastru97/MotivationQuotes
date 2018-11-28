@@ -41,7 +41,7 @@ public class SadActivity extends MainActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        ImageProcessesing.getListImage(SadActivity.this,recyclerView,"quotes1");
+        ImageProcessesing.getListImage(SadActivity.this,recyclerView,"QuotesSad");
     }
 
 

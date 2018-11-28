@@ -15,7 +15,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.MultiAutoCompleteTextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -32,11 +34,14 @@ import nelu.com.motivationquotes.utilis.UploadListAdapter;
 
 public class LoadImages extends MainActivity {
 
-
+    private static final String[] FOLDERS = new String[]{
+            "QuotesGym","QuotesAll","QuotesSad"
+    };
+    private MultiAutoCompleteTextView multiTextView;
     private DrawerLayout loadImagesDrawerLayout;
     private ActionBarDrawerToggle toggle;
     private NavigationView navigationView;
-    public static final String LOCATION_FOLDER = "quotes1";
+    public static  String folderLocation;
 
 
     private static final int RESULT_LOAD_IMAGE = 1;
@@ -67,9 +72,11 @@ public class LoadImages extends MainActivity {
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.quotes_load_images);
 
-
-        storageReference = FirebaseStorage.getInstance().getReference(LOCATION_FOLDER);
-        databaseReference = FirebaseDatabase.getInstance().getReference(LOCATION_FOLDER);
+        //Getting the folder where the images will be stored
+        multiTextView = findViewById(R.id.main_heading);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,FOLDERS);
+        multiTextView.setAdapter(arrayAdapter);
+        multiTextView.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
 
         mSelectBtn = (ImageButton) findViewById(R.id.select_btn);
         mUploadList = (RecyclerView) findViewById(R.id.load_recycle_view);
@@ -89,7 +96,9 @@ public class LoadImages extends MainActivity {
         mSelectBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                folderLocation = multiTextView.getText().toString();
+                storageReference = FirebaseStorage.getInstance().getReference(folderLocation);
+                databaseReference = FirebaseDatabase.getInstance().getReference(folderLocation);
                 Intent intent = new Intent();
                 intent.setType("image/*");
                 intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
