@@ -9,17 +9,26 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.CardView;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.util.List;
 
 import nelu.com.motivationquotes.utilis.ImageProcessesing;
+import nelu.com.motivationquotes.utilis.MyAdapter;
 
 public class GymActivity extends MainActivity {
+    private static final String TAG = "GymActivity";
     private RecyclerView recyclerView;
     private List<String> images;
+    private  MyAdapter adapter;
 
     private DrawerLayout gymDrawerLayout;
     private ActionBarDrawerToggle toggle;
@@ -43,9 +52,20 @@ public class GymActivity extends MainActivity {
 
         recyclerView = findViewById(R.id.gym_recycle_view);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
-        images = ImageProcessesing.getListImage(GymActivity.this,recyclerView,"QuotesGym");
+        images = ImageProcessesing.getListImage(GymActivity.this, recyclerView, "quotes1");
+        adapter = new MyAdapter(images, GymActivity.this);
+        recyclerView.setAdapter(adapter);
+
+
+
+        /*
+                Toast.makeText(GymActivity.this,"Hello",Toast.LENGTH_SHORT);
+                Intent intent = new Intent(GymActivity.this, ZoomImage.class);
+                startActivity(intent);
+         */
+
     }
 
 
@@ -72,7 +92,7 @@ public class GymActivity extends MainActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(toggle.onOptionsItemSelected(item)) {
+        if (toggle.onOptionsItemSelected(item)) {
             return true;
         }
         return super.onOptionsItemSelected(item);
