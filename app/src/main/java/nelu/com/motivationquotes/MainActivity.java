@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        images = ImageProcessesing.getListImage(MainActivity.this, recyclerView,"QuotesAll");
+        images = ImageProcessesing.getListImage(MainActivity.this, recyclerView,"quotes1");
     }
 
     @Override
